@@ -1,12 +1,22 @@
-version: '3.1'
+version: '3'
 
 services:
-
-  mongo:
-    image: mongo
-    restart: always
-    ports:
-      - '27017-27019:27017-27019'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: dummypass
+    # MongoDB
+    mongo:
+        image: bitnami/mongodb
+        environment:
+            MONGODB_REPLICA_SET_MODE: primary
+            ALLOW_EMPTY_PASSWORD: "yes"
+        ports:
+            - '27017:27017'
+        restart: always
+        
+    # Mongo Express Web-based MongoDB admin interface
+    mongo_express:
+        image: mongo-express
+        container_name: mongo_express
+        depends_on:
+            - 'mongo'
+        ports:
+            - '8081:8081'
+        restart: always
