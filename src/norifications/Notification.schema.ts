@@ -4,8 +4,8 @@ import { Document } from 'mongoose';
 
 export type NotificationDocument = Notification & Document;
 
-@Schema()
-export class Notification {
+@Schema({timestamps:true})
+export class Notification  {
   @Prop({required:true})
   user: number;
 
@@ -15,9 +15,13 @@ export class Notification {
   @Prop()
   body: string;
 
+  @Prop({default:false})
+  seen: boolean;
+
   @Prop({default:''})
   action: string;
 }
+
 
 export const NotificationSchema = SchemaFactory.createForClass(Notification);
 

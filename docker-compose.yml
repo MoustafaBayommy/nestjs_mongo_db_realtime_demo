@@ -11,12 +11,18 @@ services:
             - '27017:27017'
         restart: always
         
-    # Mongo Express Web-based MongoDB admin interface
-    mongo_express:
-        image: mongo-express
-        container_name: mongo_express
-        depends_on:
-            - 'mongo'
+    redis:
+        image: 'bitnami/redis:latest'
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
         ports:
-            - '8081:8081'
-        restart: always
+          - '6379:6379'
+    # Mongo Express Web-based MongoDB admin interface
+    # mongo_express:
+    #     image: mongo-express
+    #     container_name: mongo_express
+    #     depends_on:
+    #         - 'mongo'
+    #     ports:
+    #         - '8081:8081'
+    #     restart: always

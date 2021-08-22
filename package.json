@@ -27,10 +27,14 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/platform-socket.io": "^8.0.6",
     "@nestjs/websockets": "^8.0.6",
+    "@socket.io/redis-emitter": "^4.1.0",
+    "@types/redis": "^2.8.31",
     "mongoose": "^5.13.5",
+    "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "socket.io-redis": "^6.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
