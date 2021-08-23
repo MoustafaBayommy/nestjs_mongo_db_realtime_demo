@@ -26,7 +26,9 @@ export class NotificationsService {
 
 private watchForNewNotifications(){
   this.model.watch().on('change',  change=>{
-    this.gatway.server.emit('new',change);
+    if(change.operationType=='insert'){
+      this.gatway.server.emit('new',change.fullDocument);
+    }
     // this.redis.emitter.emit('new:notification',change)
     // this.gatWay.server.to('default-room').emit('new:notification',change);
   });

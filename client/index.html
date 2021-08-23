@@ -10,24 +10,24 @@
 
     <main id="todolist">
       <h1>
-        Todo List
+        Tasks List
         <span>Today i need To :</span>
       </h1>
     
       <template v-if="todo.length">
-        <transition-group name="todolist" tag="ul">
-          <li v-for="item in todoByStatus" v-bind:class="item.done ? 'done' : ''" v-bind:key="item.id">
-            <span class="label">{{item.label}}</span>
-            <div class="actions">
+        <!-- <transition-group name="todolist" tag="ul"> -->
+          <li v-for="item in todo"  v-bind:key="item.id">
+            <span class="label">{{item.title}}</span>
+            <!-- <div class="actions">
               <button class="btn-picto" type="button" v-on:click="markAsDoneOrUndone(item)" v-bind:aria-label="item.done ? 'Undone' : 'Done'" v-bind:title="item.done ? 'Undone' : 'Done'">
                 <i aria-hidden="true" class="material-icons">{{ item.done ? 'check_box' : 'check_box_outline_blank' }}</i>
               </button>
               <button class="btn-picto" type="button" v-on:click="deleteItemFromList(item)" aria-label="Delete" title="Delete">
                 <i aria-hidden="true" class="material-icons">delete</i>
               </button>
-            </div>
+            </div> -->
           </li>
-        </transition-group>
+        <!-- </transition-group> -->
         <togglebutton 
                       label="Move done items at the end?"
                       name="todosort"
@@ -66,7 +66,7 @@ methods: {
      this.$emit('clicked', this.isactive)
   }
 }
-});
+    });
 
 var todolist = new Vue({
 el: '#todolist',
@@ -74,10 +74,23 @@ data: {
   newitem:'',
   sortByStatus:false,
   todo: [
-    { id:1, label: "GO to the GYM ", done: true },
-    { id:2, label: "Read New Book", done: false },
-    { id:3, label: "Meditation", done: false }
   ]
+},
+mounted:function (){
+fetch("http://localhost:3000/tasks").then(res=>res.json()).then(data=>{
+
+  const socket = io('http://localhost:3000/tasks');
+
+    socket.on('connect', function() {
+      console.log('Connected');
+    });
+    socket.on('new',(s)=>{
+      console.log('got new notification ',s);
+      this.todo.push(s)
+    });
+
+  this.todo=data;
+})
 },
 methods: {
   addItem: function() {
@@ -111,23 +124,12 @@ computed: {
   }
 }
 });
-    const socket = io('http://localhost:3000/notifications');
+    const socket = io('http://localhost:3000/tasks');
     socket.on('connect', function() {
       console.log('Connected');
-
-      socket.emit('new', {"user":1,"title":"notification1","description":"notification"});
-      socket.emit('identity', 0, response =>
-        console.log('Identity:', response),
-      );
     });
     socket.on('new',(s)=>console.log(s,'fff'));
 
-    socket.on('events', function(data) {
-      console.log('event', data);
-    });
-    socket.on('exception', function(data) {
-      console.log('event', data);
-    });
     socket.on('disconnect', function() {
       console.log('Disconnected');
     });

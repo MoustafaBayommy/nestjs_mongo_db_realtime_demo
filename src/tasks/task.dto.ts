@@ -2,7 +2,7 @@
 
 export class TaskDto{
       assignee:number;
-      name:string;
-      description:string;
+      title:string;
+      details:string;
 
 }

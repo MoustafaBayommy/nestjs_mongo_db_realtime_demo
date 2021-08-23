@@ -10,7 +10,7 @@ export class Task {
   assignee: number;
 
   @Prop()
-  name: string;
+  title: string;
 
   @Prop()
   details: string;

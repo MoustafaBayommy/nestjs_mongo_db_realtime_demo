@@ -12,7 +12,7 @@ export class TasksService {
       constructor( private readonly gatway:TasksGateway,
             private readonly notificationService:NotificationsService,
             @InjectModel(Task.name) private model: Model<TaskDocument> ){
-      this.watch();
+                   this.watch();
       }
 
       async save(dto:TaskDto){
@@ -26,17 +26,23 @@ export class TasksService {
                   const notification:NotificationDto={
                         user:dto.assignee,
                         title:"got new task",
-                        body:`${dto.name} task waiting for you `
+                        body:`${dto.details} task waiting for you `
                   };
                   //add notification
             await this.notificationService.save(notification)
       }
 
+
+      findAll(){
+            return this.model.find().exec();
+      }
+
       private watch(){
             this.model.watch().on('change',  change=>{
                   this.gatway.server.emit('new',change);
-                  // this.redis.emitter.emit('new:notification',change)
-                  // this.gatWay.server.to('default-room').emit('new:notification',change);
+                  if(change.operationType=='insert'){
+                        this.gatway.server.emit('new',change.fullDocument);
+                      }
                 });
       }
 
