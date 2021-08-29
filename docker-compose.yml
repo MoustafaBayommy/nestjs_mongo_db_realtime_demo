@@ -1,28 +1,18 @@
 version: '3'
 
 services:
-    # MongoDB
-    mongo:
-        image: bitnami/mongodb
-        environment:
-            MONGODB_REPLICA_SET_MODE: primary
-            ALLOW_EMPTY_PASSWORD: "yes"
-        ports:
-            - '27017:27017'
-        restart: always
-        
-    redis:
-        image: 'bitnami/redis:latest'
-        environment:
-            - ALLOW_EMPTY_PASSWORD=yes
-        ports:
-          - '6379:6379'
-    # Mongo Express Web-based MongoDB admin interface
-    # mongo_express:
-    #     image: mongo-express
-    #     container_name: mongo_express
-    #     depends_on:
-    #         - 'mongo'
-    #     ports:
-    #         - '8081:8081'
-    #     restart: always
+  mongo:
+    image: bitnami/mongodb
+    environment:
+      MONGODB_REPLICA_SET_MODE: primary
+      ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - '27017:27017'
+    restart: always
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'

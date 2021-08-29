@@ -1,12 +1,11 @@
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type NotificationDocument = Notification & Document;
 
-@Schema({timestamps:true})
-export class Notification  {
-  @Prop({required:true})
+@Schema({ timestamps: true })
+export class Notification {
+  @Prop({ required: true })
   user: number;
 
   @Prop()
@@ -15,13 +14,11 @@ export class Notification  {
   @Prop()
   body: string;
 
-  @Prop({default:false})
+  @Prop({ default: false })
   seen: boolean;
 
-  @Prop({default:''})
+  @Prop({ default: '' })
   action: string;
 }
 
-
 export const NotificationSchema = SchemaFactory.createForClass(Notification);
-

@@ -4,19 +4,15 @@ import { TasksService } from './tasks.service';
 
 @Controller('tasks')
 export class TasksController {
+  constructor(private readonly service: TasksService) {}
 
-      constructor(private readonly service:TasksService){
+  @Post()
+  create(@Body() dto: TaskDto) {
+    return this.service.save(dto);
+  }
 
-      }
-
-      @Post()
-      create(@Body() dto:TaskDto){
-           return  this.service.save(dto);
-      }
-
-      @Get()
-      getAll(){
-            return this.service.findAll();
-      }
-
+  @Get()
+  getAll() {
+    return this.service.findAll();
+  }
 }

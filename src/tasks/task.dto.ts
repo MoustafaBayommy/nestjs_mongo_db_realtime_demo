@@ -1,8 +1,5 @@
-
-
-export class TaskDto{
-      assignee:number;
-      title:string;
-      details:string;
-
+export class TaskDto {
+  assignee: number;
+  title: string;
+  details: string;
 }

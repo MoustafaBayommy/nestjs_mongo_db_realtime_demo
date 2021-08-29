@@ -7,9 +7,12 @@ import { Task, TaskSchema } from './Task.schema';
 import { NorificationsModule } from 'src/norifications/norifications.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Task.name, schema: TaskSchema }]),NorificationsModule],
-  providers: [TasksService,TasksGateway],
+  imports: [
+    MongooseModule.forFeature([{ name: Task.name, schema: TaskSchema }]),
+    NorificationsModule,
+  ],
+  providers: [TasksService, TasksGateway],
   controllers: [TasksController],
-  exports:[TasksService]
+  exports: [TasksService],
 })
 export class TasksModule {}
